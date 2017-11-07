@@ -23,18 +23,19 @@ CONSTRUCT {
 
 		ex:Secret ?Secret;
 
-		ex:disponibilite ?Non_disponible;
+		ex:nonDisponible ?Non_disponible;
 
-		ex:etatDonnee ?Etat_des_données;
+		ex:etatDonnee ?État_des_données;
 
-		frapo:Endowment ?Valeur;
+		frapo:BudgetedAmount ?Valeur;
 }
 FROM <file:project.csv>
 WHERE {
-	BIND(URI(CONCAT('http://ex.org/donation/', ?code_zone_geo, ?Année, ?code_indiateur, ?code_type_pers, ?code_intensite)) AS ?URI)
+	BIND(URI(CONCAT('http://ex.org/donation/', ?code_zone_geo, ?Année, ?code_indicateur, ?code_type_pers, ?code_intensite)) AS ?URI)
 	BIND (xsd:string(?Indicateur) AS ?Indicateur)
-	BIND (xsd:string(?type_de_personnel) AS ?type_de_personnel)
-	BIND (xsd:string(?intensite_technologique) AS ?intensite_technologique)
+	BIND (xsd:string(?Type_de_personnel) AS ?Type_de_personnel)
+	BIND (xsd:string(?Intensité_technologique) AS ?Intensité_technologique)
 	BIND (xsd:boolean(?Secret) AS ?Secret)
 	BIND (xsd:boolean(?Non_disponible) AS ?Non_disponible)
+	BIND (xsd:boolean(?État_des_données) AS ?État_des_données)
 }
