@@ -1,0 +1,20 @@
+#Requete n°1
+
+REFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX frapo: <http://purl.org/cerif/frapo/>
+
+Select distinct ?zone_geographique, ?annee
+Where {	?x xsd:number ?valeur;
+     frapo:hasLocation ?zone_geographique;
+     xsd:gYear ?annee
+		FILTER(?valeur > 25 000)}
+
+
+#Requete n°2
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX frapo: <http://purl.org/cerif/frapo/>
+
+Select distinct ?zone_geographique
+Where {	?x xsd:number ?valeur;
+     frapo:hasLocation ?zone_geographique}
+Order by ?valeur
