@@ -1,0 +1,71 @@
+# Requête N°1.1
+# On souhaite afficher tous les budgets de recherche et de transfert de technologie
+# des collectivités territoriales de la région les Hauts de France
+
+
+PREFIX dbo:<http://dbpedia.org/ontology/>
+PREFIX dbp:<http://dbpedia.org/property/>
+PREFIX ex:<http://test.org/>
+PREFIX frapo:<http://purl.org/cerif/frapo/>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?annee ?indicateur ?indicateurEffort ?organization ?objectif ?valeur
+WHERE {
+	?p dbo:region "Hauts-de-France".
+	?p dbo:Organization ?organization.
+	?p dbo:year ?annee.
+	?p frapo:BudgetInformation ?indicateur.
+	?p frapo:appliesFor ?objectif.
+	?p frapo:BudgetedAmount ?valeur.
+ 	OPTIONAL { ?p frapo:BudgetInformation ?indicateurEffort }
+}
+ORDER BY ?annee
+
+
+
+# Requête N°1.2
+# On associe à la région Hauts de France son ancien nom, à savoir Nord pas de Calais
+
+
+PREFIX dbo:<http://dbpedia.org/ontology/>
+PREFIX dbp:<http://dbpedia.org/property/>
+PREFIX ex:<http://test.org/>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+
+INSERT {
+	?p dbo:sameAs "NordPasdeCalais"
+}
+WHERE {
+	?p dbo:region "Hauts-de-France"
+};
+INSERT {
+	?p dbo:sameAs "Hauts-de-France"
+}
+WHERE {
+	?p dbo:region "NordPasdeCalais"
+};
+
+
+
+# Requête N°1.3
+# On test notre update en reprennant la requête N°1
+
+
+PREFIX dbo:<http://dbpedia.org/ontology/>
+PREFIX dbp:<http://dbpedia.org/property/>
+PREFIX ex:<http://test.org/>
+PREFIX frapo:<http://purl.org/cerif/frapo/>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?annee ?region ?indicateur ?indicateurEffort ?organization ?objectif ?valeur
+WHERE {
+	?p dbo:region "Hauts-de-France".
+  	?p dbo:sameAs ?region.	
+	?p dbo:Organization ?organization.
+	?p dbo:year ?annee.
+	?p frapo:BudgetInformation ?indicateur.
+	?p frapo:appliesFor ?objectif.
+	?p frapo:BudgetedAmount ?valeur.
+ 	OPTIONAL { ?p frapo:BudgetInformation ?indicateurEffort }
+}
+ORDER BY ?annee

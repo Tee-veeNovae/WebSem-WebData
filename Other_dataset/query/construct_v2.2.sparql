@@ -1,0 +1,37 @@
+PREFIX dbo:<http://dbpedia.org/ontology/>
+PREFIX dbp:<http://dbpedia.org/property/>
+PREFIX ex:<http://test.org/>
+PREFIX frapo:<http://purl.org/cerif/frapo/>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+
+CONSTRUCT {
+  ?URI a dbo:budget;
+    frapo:BudgetInformation ?indicateurs;
+    frapo:BudgetInformation ?indicaeffort;
+    frapo:appliesFor ?objectif; 
+    frapo:BudgetedAmount ?valeur;
+    dbo:percentage ?pourcentage;
+    dbo:year ?annee;
+    dbo:country ?pays;
+    dbo:region ?region;
+    dbo:code ?codereg;
+    dbo:region ?ancienreg;
+    dbo:code ?codeancienreg;
+    dbo:Organization ?coll 
+}
+WHERE {
+  BIND (xsd:string(?Objectifs_sur_budget_ventilé) AS ?objectif)
+  BIND (xsd:double(?Valeur) AS ?valeur) 
+  BIND (URI(CONCAT('http://ex.org/budget/', CONCAT(?objectif, ?Valeur))) AS ?URI)
+  BIND (xsd:string(?Indicateurs) AS ?indicateurs)
+  BIND (xsd:string(?Indicateurs_de_leffort_budgétaire_des_conseils_régionaux) AS ?indicaeffort)
+  BIND (xsd:boolean(?Pourcentage) AS ?pourcentage)
+  BIND (xsd:gYear(?Années) AS ?annee)
+  BIND (xsd:string(?Pays) AS ?pays)
+  BIND (xsd:string(?Régions) AS ?region)
+  BIND (xsd:string(?Codes_régions) AS ?codereg)
+  BIND (xsd:string(?Anciennes_régions) AS ?ancienreg)
+  BIND (xsd:string(?Code_anciennes_régions) AS ?codeancienreg)
+  BIND (xsd:string(?Type_de_collectivité) AS ?coll)
+}

@@ -1,0 +1,37 @@
+PREFIX dbo:<http://dbpedia.org/ontology/>
+PREFIX dbp:<http://dbpedia.org/property/>
+PREFIX ex:<http://test.org/>
+PREFIX frapo:<http://purl.org/cerif/frapo/>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+
+
+CONSTRUCT {
+  ?URI a dbo:budget;
+    frapo:BudgetInformation ?indicateurs;
+    frapo:BudgetInformation ?indicaeffort;
+    frapo:appliesFor ?objectif; 
+    frapo:BudgetedAmount ?valeur;
+    dbo:percentage ?pourcentage;
+    dbo:year ?annee;
+    dbo:country ?pays;
+    dbo:region ?region;
+    dbo:code ?codereg;
+    dbo:region ?ancienreg;
+    dbo:code ?codeancienreg;
+    dbo:Organization ?coll 
+}
+WHERE {
+  BIND ((?Objectifs_sur_budget_ventilé) AS ?objectif)
+  BIND ((?Valeur) AS ?valeur) 
+  BIND (URI(CONCAT('http://ex.org/budget/', CONCAT(?objectif, ?valeur))) AS ?URI)
+  BIND ((?Indicateurs) AS ?indicateurs)
+  BIND ((?Indicateurs_de_leffort_budgétaire_des_conseils_régionaux) AS ?indicaeffort)
+  BIND ((?Pourcentage) AS ?pourcentage)
+  BIND ((?Années) AS ?annee)
+  BIND ((?Pays) AS ?pays)
+  BIND ((?Régions) AS ?region)
+  BIND ((?Codes_régions) AS ?codereg)
+  BIND ((?Anciennes_régions) AS ?ancienreg)
+  BIND ((?Code_anciennes_régions) AS ?codeancienreg)
+  BIND ((?Type_de_collectivité) AS ?coll)
+}

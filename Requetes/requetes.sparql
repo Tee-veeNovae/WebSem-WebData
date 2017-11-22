@@ -1,0 +1,32 @@
+#Requete n°1
+PREFIX frapo: <http://purl.org/cerif/frapo/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+
+Select  ?zone_geo ?annee
+Where {	?x a frapo:Funding;
+     frapo:BudgetedAmount ?valeur;
+     frapo:hasDeliveryDate ?annee;
+     dbo:Place ?place.
+     ?place frapo:hasLocation ?zone_geo.
+		FILTER(?valeur > 25000.0)}
+
+
+#Requete n°2
+PREFIX frapo: <http://purl.org/cerif/frapo/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+
+Select DISTINCT ?zone_geo
+Where {	?x frapo:BudgetedAmount  ?valeur;
+           frapo:hasDeliveryDate ?annee;
+     	   dbo:Place ?place.
+     	?place frapo:hasLocation ?zone_geo.
+     	FILTER(?annee = "2010"^^xsd:gYear)}
+ORDER BY DESC(?valeur)
+LIMIT 5
+
+#Requetes d'étude du csv
+
+SELECT DISTINCT ?zone_geo
+Where {	?x dbo:Place ?place.
+     	?place frapo:hasLocation ?zone_geo.}

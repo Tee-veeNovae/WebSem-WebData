@@ -1,0 +1,27 @@
+PREFIX dbo:<http://dbpedia.org/ontology/>
+PREFIX dbp:<http://dbpedia.org/property/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ex:<http://test.org/>
+
+CONSTRUCT {
+ ?URI a dbo:budget;
+    dbp:title ?Indicateurs;
+    dbo:abstract ?objectif; 
+    rdfs:comment ?indicaeffort;
+    dbo:year ?Années;
+    dbo:region ?Régions;
+    dbo:region ?ancienreg;
+    dbo:code ?codereg;
+    dbo:code ?codeancienreg;
+    dbp:amount ?Valeur;
+    dbo:Organization ?coll 
+}
+WHERE {
+  BIND ((?Objectifs_sur_budget_ventilé) AS ?objectif)
+  BIND (URI(CONCAT('http://ex.org/budget/', CONCAT(?objectif,?Valeur))) AS ?URI)
+  BIND (?Type_de_collectivité AS ?coll)
+  BIND (?Indicateurs_de_leffort_budgétaire_des_conseils_régionaux AS ?indicaeffort)
+  BIND ((?Codes_régions) AS ?codereg)
+  BIND ((?Code_anciennes_régions) AS ?codeancienreg)
+  BIND ((?Anciennes_régions) AS ?ancienreg)
+}
