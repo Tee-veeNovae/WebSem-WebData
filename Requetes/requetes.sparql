@@ -27,6 +27,49 @@ LIMIT 5
 
 #Requetes d'étude du csv
 
-SELECT DISTINCT ?zone_geo
+SELECT DISTINCT ?zone ?code
 Where {	?x dbo:Place ?place.
-     	?place frapo:hasLocation ?zone_geo.}
+		OPTIONAL{?place frapo:hasCode ?code;
+     		frapo:hasLocation ?zone.}}
+ORDER BY ?code
+
+
+SELECT DISTINCT ?indicateur ?code
+Where {	?x ex:indicateur ?ind.
+  		OPTIONAL{?ind frapo:hasCode ?code;
+     		 ex:typeIndic ?indicateur.}}
+ORDER BY ?code
+
+
+SELECT DISTINCT ?personnel ?code
+Where {	?x ex:personnel ?pers.
+  		OPTIONAL{?pers frapo:hasCode ?code;
+     		 ex:typePersonnel ?personnel.}}
+ORDER BY ?code
+
+SELECT DISTINCT ?intensite ?code
+Where {	?x ex:intensite ?int.
+  		OPTIONAL{?int frapo:hasCode ?code;
+     		 ex:typeIntensite ?intensite.}}
+ORDER BY ?code
+
+
+SELECT DISTINCT ?secret
+Where {	?x a frapo:Funding
+		OPTIONAL{?x ex:Secret ?secret}}
+
+
+SELECT DISTINCT ?non_disp
+Where {	?x a frapo:Funding
+		OPTIONAL{?x ex:nonDisponible ?non_disp}}
+
+
+SELECT DISTINCT ?etat_data
+Where {	?x a frapo:Funding
+		OPTIONAL{?x ex:etatDonnee ?etat_data}}
+
+
+SELECT DISTINCT ?valeur
+Where {	?x a frapo:Funding
+		OPTIONAL{?x frapo:BudgetedAmount ?valeur}}
+ORDER BY ?valeur
