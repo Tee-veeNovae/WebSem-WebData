@@ -2,13 +2,15 @@
 PREFIX frapo: <http://purl.org/cerif/frapo/>
 PREFIX dbo: <http://dbpedia.org/ontology/>
 
-Select  ?zone_geo ?annee
-Where {	?x a frapo:Funding;
-     frapo:BudgetedAmount ?valeur;
-     frapo:hasDeliveryDate ?annee;
-     dbo:Place ?place.
-     ?place frapo:hasLocation ?zone_geo.
-		FILTER(?valeur > 25000.0)}
+Select  ?zone_geo ?annee ?type
+Where {	?x frapo:BudgetedAmount ?valeur;
+     	   frapo:hasDeliveryDate ?annee;
+     	   dbo:Place ?place;
+     	   ex:personnel ?pers.
+    	?place frapo:hasLocation ?zone_geo.
+    	?pers ex:typePersonnel ?type.
+		FILTER(?valeur > 25000)}
+ORDER BY ?annee
 
 
 #Requete n°2
@@ -73,3 +75,22 @@ SELECT DISTINCT ?valeur
 Where {	?x a frapo:Funding
 		OPTIONAL{?x frapo:BudgetedAmount ?valeur}}
 ORDER BY ?valeur
+
+
+#Requêtes sur un autre dataset
+
+
+Select DISTINCT ?region ?otherRegion
+Where {	
+  			?funding a frapo:Funding;
+       				 dbo:Place ?place.
+    		?place frapo:hasLocation ?region.
+    	?region owl:sameAs ?otherRegion
+ 
+  		SERVICE <http://localhost:3030/OtherSet> {
+			?otherFunding a dbo:budget;
+    					  dbo:region ?otherRegion.
+		}
+}
+LIMIT 10
+

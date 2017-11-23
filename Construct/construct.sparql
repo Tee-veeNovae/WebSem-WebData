@@ -3,11 +3,16 @@ PREFIX ex: <http://ex.org/a#>
 PREFIX dbo: <http://dbpedia.org/ontology/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX frapo: <http://purl.org/cerif/frapo/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/2000/01/rdf-schema#>
 
 CONSTRUCT {
+	?URI_Region rdf:type frapo:hasLocation;
+		owl:sameAs ?URI_Region_Other.
+
 	?URI a frapo:Funding;
 
-		dbo:Place [frapo:hasLocation ?zone_geo;
+		dbo:Place [frapo:hasLocation ?URI_Region;
 					frapo:hasCode ?code_geo];
 
 		frapo:hasDeliveryDate ?annee;
@@ -27,12 +32,17 @@ CONSTRUCT {
 
 		ex:etatDonnee ?etat_data;
 
-		frapo:BudgetedAmount ?valeur;
+		frapo:BudgetedAmount ?valeur.
+
+
 }
 FROM <file:../Data/project.csv>
 WHERE {	
 	BIND (xsd:integer(?code_zone_geo) AS ?code_geo)
-	BIND (xsd:string(?Zone_géographique) AS ?zone_geo)
+	#BIND (xsd:string(?Zone_géographique) AS ?zone_geo)
+
+	BIND(URI(CONCAT("https://ex.org/donation/", REPLACE(?Zone_géographique, " ", "_"))) AS ?URI_Region).
+	BIND(URI(CONCAT("https://ex.org/budget/", REPLACE(?Zone_géographique, " ", "_"))) AS ?URI_Region_Other).
 
 	BIND (xsd:gYear(?Année) AS ?annee)
 
