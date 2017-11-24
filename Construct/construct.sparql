@@ -7,18 +7,21 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX rdf: <http://www.w3.org/2000/01/rdf-schema#>
 
 CONSTRUCT {
-	?URI_Region rdf:type frapo:hasLocation;
-		owl:sameAs ?URI_Region_Other.
 
+	#L'URI pour les régions permettant de lier les données
+	?URI_Code_Region rdf:type frapo:hasLocation;
+		owl:sameAs ?URI_Code_Region_Other.
+
+	#L'URI_Funding pour les fonts
 	?URI a frapo:Funding;
 
-		dbo:Place [frapo:hasLocation ?URI_Region;
-					frapo:hasCode ?code_geo];
+		dbo:Place [frapo:hasLocation ?zone_geo;
+					frapo:hasCode ?URI_Code_Region];
 
 		frapo:hasDeliveryDate ?annee;
 		
 		ex:indicateur [frapo:hasCode ?code_indi;
-						ex:typeIndic ?indicateur];
+						frapo:BudgetInformation ?indicateur];
 
 		ex:personnel [frapo:hasCode ?code_pers;
 						ex:typePersonnel ?type_pers];
@@ -33,16 +36,12 @@ CONSTRUCT {
 		ex:etatDonnee ?etat_data;
 
 		frapo:BudgetedAmount ?valeur.
-
-
 }
 FROM <file:../Data/project.csv>
 WHERE {	
-	BIND (xsd:integer(?code_zone_geo) AS ?code_geo)
-	#BIND (xsd:string(?Zone_géographique) AS ?zone_geo)
-
-	BIND(URI(CONCAT("https://ex.org/donation/", REPLACE(?Zone_géographique, " ", "_"))) AS ?URI_Region).
-	BIND(URI(CONCAT("https://ex.org/budget/", REPLACE(?Zone_géographique, " ", "_"))) AS ?URI_Region_Other).
+	
+	#BIND (xsd:integer(?code_zone_geo) AS ?code_geo)
+	BIND (xsd:string(?Zone_géographique) AS ?zone_geo)
 
 	BIND (xsd:gYear(?Année) AS ?annee)
 
@@ -65,5 +64,9 @@ WHERE {
 
 	BIND(IF(bound(?code_type_pers),
 		URI(CONCAT('http://ex.org/donation/', ?code_zone_geo, ?Année, ?code_indicateur, ?code_type_pers, ?code_intensite)),
-		URI(CONCAT('http://ex.org/donation/', ?code_zone_geo, ?Année, ?code_indicateur, ?code_intensite))) AS ?URI)
+		URI(CONCAT('http://ex.org/donation/', ?code_zone_geo, ?Année, ?code_indicateur, ?code_intensite))) AS ?URI_Funding)
+
+	#Construction des URI pour la liaison des datasets
+	BIND(URI(CONCAT("https://ex.org/donation/region", REPLACE(?code_zone_geo, " ", "_"))) AS ?URI_Code_Region).
+	BIND(URI(CONCAT("https://ex.org/budget/region", REPLACE(?code_zone_geo, " ", "_"))) AS ?URI_Code_Region_Other).
 }
