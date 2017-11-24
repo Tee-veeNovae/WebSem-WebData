@@ -80,17 +80,44 @@ ORDER BY ?valeur
 #Requêtes sur un autre dataset
 
 
-Select DISTINCT ?region ?otherRegion
+PREFIX frapo: <http://purl.org/cerif/frapo/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+
+PREFIX frapo: <http://purl.org/cerif/frapo/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+
+Select DISTINCT ?codeReg ?otherCodeReg (SUM(?valeur) as ?sum) (SUM(?otherValeur) as ?otherSum) 
 Where {	
   			?funding a frapo:Funding;
-       				 dbo:Place ?place.
-    		?place frapo:hasLocation ?region.
-    	?region owl:sameAs ?otherRegion
- 
+              		frapo:BudgetedAmount ?valeur;
+       				dbo:Place ?place.
+    		?place frapo:hasCode ?codeReg.
+  			?codeReg owl:sameAs ?otherCodeReg.
+
   		SERVICE <http://localhost:3030/OtherSet> {
-			?otherFunding a dbo:budget;
-    					  dbo:region ?otherRegion.
+			?otherFunding a frapo:Funding;
+                 		frapo:BudgetedAmount ?otherValeur;
+    					dbo:code ?otherCodeReg.
 		}
 }
-LIMIT 10
+GROUP BY ?codeReg ?otherCodeReg
+
+
+
+
+
+
+
+
+
+
+
+
+
 

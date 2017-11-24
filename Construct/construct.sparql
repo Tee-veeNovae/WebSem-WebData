@@ -67,6 +67,6 @@ WHERE {
 		URI(CONCAT('http://ex.org/donation/', ?code_zone_geo, ?Année, ?code_indicateur, ?code_intensite))) AS ?URI_Funding)
 
 	#Construction des URI pour la liaison des datasets
-	BIND(URI(CONCAT("https://ex.org/donation/region", REPLACE(?code_zone_geo, " ", "_"))) AS ?URI_Code_Region).
-	BIND(URI(CONCAT("https://ex.org/budget/region", REPLACE(?code_zone_geo, " ", "_"))) AS ?URI_Code_Region_Other).
+	BIND(URI(CONCAT("http://ex.org/donation/codeRegion", REPLACE(?code_zone_geo, " ", "_"))) AS ?URI_Code_Region).
+	BIND(URI(CONCAT("http://ex.org/budget/codeRegion", REPLACE(?code_zone_geo, " ", "_"))) AS ?URI_Code_Region_Other).
 }
