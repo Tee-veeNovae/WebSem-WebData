@@ -9,11 +9,11 @@ PREFIX rdf: <http://www.w3.org/2000/01/rdf-schema#>
 CONSTRUCT {
 
 	#L'URI pour les régions permettant de lier les données
-	?URI_Code_Region rdf:type frapo:hasLocation;
+	?URI_Code_Region rdf:type frapo:hasCode;
 		owl:sameAs ?URI_Code_Region_Other.
 
 	#L'URI_Funding pour les fonts
-	?URI a frapo:Funding;
+	?URI_Funding a frapo:Funding;
 
 		dbo:Place [frapo:hasLocation ?zone_geo;
 					frapo:hasCode ?URI_Code_Region];
@@ -40,7 +40,7 @@ CONSTRUCT {
 FROM <file:../Data/project.csv>
 WHERE {	
 	
-	#BIND (xsd:integer(?code_zone_geo) AS ?code_geo)
+	BIND (xsd:integer(?code_zone_geo) AS ?code_geo)
 	BIND (xsd:string(?Zone_géographique) AS ?zone_geo)
 
 	BIND (xsd:gYear(?Année) AS ?annee)
