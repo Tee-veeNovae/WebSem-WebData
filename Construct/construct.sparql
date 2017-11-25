@@ -1,5 +1,5 @@
 PREFIX dbp: <http://dbpedia.org/property/>
-PREFIX ex: <http://ex.org/a#>
+PREFIX ns: <http://example.org/ns#>
 PREFIX dbo: <http://dbpedia.org/ontology/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX frapo: <http://purl.org/cerif/frapo/>
@@ -21,20 +21,20 @@ CONSTRUCT {
 
 		frapo:hasDeliveryDate ?annee;
 		
-		ex:indicateur [frapo:hasCode ?code_indi;
+		ns:Indicator [frapo:hasCode ?code_indi;
 						frapo:BudgetInformation ?indicateur];
 
-		ex:personnel [frapo:hasCode ?code_pers;
+		ns:Saff [frapo:hasCode ?code_pers;
 						frapo:BudgetInformation ?type_pers];
 
-		ex:intensite [frapo:hasCode ?code_int;
+		ns:Intensity [frapo:hasCode ?code_int;
 						frapo:BudgetInformation ?intensite];
 
-		ex:Secret ?secret;
+		ns:Secret ?secret;
 
-		ex:nonDisponible ?non_disp;
+		ns:notAvailable ?non_disp;
 
-		ex:etatDonnee ?etat_data;
+		ns:DataState ?etat_data;
 
 		frapo:BudgetedAmount ?valeur.
 }
@@ -71,5 +71,5 @@ WHERE {
 	#Construction des URI pour la liaison des datasets
 	BIND(URI(CONCAT("http://ex.org/fr-esr-rd-moyens-entreprises-intensite/codeRegion/", ?code_zone_geo)) AS ?URI_Code_Region)
 	BIND(URI(CONCAT("http://ex.org/budget/codeRegion/", ?code_zone_geo)) AS ?URI_Code_Region_Loic)
-	BIND(URI(CONCAT("http://ex.org/nous/codeRegion/", ?code_zone_geo)) AS ?URI_Code_Region_Clem)
+	#BIND(URI(CONCAT("http://ex.org/nous/codeRegion/", ?code_zone_geo)) AS ?URI_Code_Region_Clem)
 }
