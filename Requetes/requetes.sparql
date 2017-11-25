@@ -92,21 +92,30 @@ PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
 
-Select DISTINCT ?codeReg ?otherCodeReg (SUM(?valeur) as ?sum) (SUM(?otherValeur) as ?otherSum) 
+Select DISTINCT ?zoneGeo (SUM(?valeur) as ?sum) (SUM(?otherValeur1) as ?otherSum1) (SUM(?otherValeur2) as ?otherSum2) 
 Where {	
   			?funding a frapo:Funding;
               		frapo:BudgetedAmount ?valeur;
        				dbo:Place ?place.
-    		?place frapo:hasCode ?codeReg.
-  			?codeReg owl:sameAs ?otherCodeReg.
 
-  		SERVICE <http://localhost:3030/OtherSet> {
+    		?place frapo:hasCode ?codeReg;
+    				frapo:hasLocation ?zoneGeo.
+
+  			?codeReg owl:sameAs ?otherCodeReg1;
+  					owl:sameAs ?otherCodeReg2.
+
+  		SERVICE <http://localhost:3030/OtherSet1> {
 			?otherFunding a frapo:Funding;
-                 		frapo:BudgetedAmount ?otherValeur;
-    					dbo:code ?otherCodeReg.
+                 		frapo:BudgetedAmount ?otherValeur1;
+    					dbo:code ?otherCodeReg1.
+		}
+		SERVICE <http://localhost:3030/OtherSet2> {
+			?otherFunding a frapo:Funding;
+                 		frapo:BudgetedAmount ?otherValeur2;
+    					dbo:code ?otherCodeReg2.
 		}
 }
-GROUP BY ?codeReg ?otherCodeReg
+GROUP BY ?zoneGeo
 
 
 
@@ -114,7 +123,7 @@ GROUP BY ?codeReg ?otherCodeReg
 
 
 
-
+BMa
 
 
 

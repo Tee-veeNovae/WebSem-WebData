@@ -10,7 +10,8 @@ CONSTRUCT {
 
 	#L'URI pour les régions permettant de lier les données
 	?URI_Code_Region rdf:type frapo:hasCode;
-		owl:sameAs ?URI_Code_Region_Other.
+		owl:sameAs ?URI_Code_Region_Loic;
+		owl:sameAs ?URI_Code_Region_Clem.
 
 	#L'URI_Funding pour les fonts
 	?URI_Funding a frapo:Funding;
@@ -24,10 +25,10 @@ CONSTRUCT {
 						frapo:BudgetInformation ?indicateur];
 
 		ex:personnel [frapo:hasCode ?code_pers;
-						ex:typePersonnel ?type_pers];
+						frapo:BudgetInformation ?type_pers];
 
 		ex:intensite [frapo:hasCode ?code_int;
-						ex:typeIntensite ?intensite];
+						frapo:BudgetInformation ?intensite];
 
 		ex:Secret ?secret;
 
@@ -63,10 +64,12 @@ WHERE {
 	BIND (xsd:double(?Valeur) AS ?valeur)
 
 	BIND(IF(bound(?code_type_pers),
-		URI(CONCAT('http://ex.org/donation/', ?code_zone_geo, ?Année, ?code_indicateur, ?code_type_pers, ?code_intensite)),
-		URI(CONCAT('http://ex.org/donation/', ?code_zone_geo, ?Année, ?code_indicateur, ?code_intensite))) AS ?URI_Funding)
+		URI(CONCAT("http://ex.org/fr-esr-rd-moyens-entreprises-intensite/", ?code_zone_geo, ?Année, ?code_indicateur, ?code_type_pers, ?code_intensite)),
+		URI(CONCAT("http://ex.org/fr-esr-rd-moyens-entreprises-intensite/", ?code_zone_geo, ?Année, ?code_indicateur, ?code_intensite))) 
+		AS ?URI_Funding)
 
 	#Construction des URI pour la liaison des datasets
-	BIND(URI(CONCAT("http://ex.org/donation/codeRegion", REPLACE(?code_zone_geo, " ", "_"))) AS ?URI_Code_Region).
-	BIND(URI(CONCAT("http://ex.org/budget/codeRegion", REPLACE(?code_zone_geo, " ", "_"))) AS ?URI_Code_Region_Other).
+	BIND(URI(CONCAT("http://ex.org/fr-esr-rd-moyens-entreprises-intensite/codeRegion/", ?code_zone_geo)) AS ?URI_Code_Region)
+	BIND(URI(CONCAT("http://ex.org/budget/codeRegion/", ?code_zone_geo)) AS ?URI_Code_Region_Loic)
+	BIND(URI(CONCAT("http://ex.org/nous/codeRegion/", ?code_zone_geo)) AS ?URI_Code_Region_Clem)
 }
