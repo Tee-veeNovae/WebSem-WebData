@@ -24,7 +24,7 @@ CONSTRUCT {
 		ns:Indicator [frapo:hasCode ?code_indi;
 						frapo:BudgetInformation ?indicateur];
 
-		ns:Saff [frapo:hasCode ?code_pers;
+		ns:Staff [frapo:hasCode ?code_pers;
 						frapo:BudgetInformation ?type_pers];
 
 		ns:Intensity [frapo:hasCode ?code_int;

@@ -14,5 +14,5 @@ ns:DataState rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
 			rdfs:range xsd:string.
 
 ns:Indicator rdf:type owl:ObjectProperty.
-ns:Saff rdf:type owl:ObjectProperty.
+ns:Staff rdf:type owl:ObjectProperty.
 ns:Intensity rdf:type owl:ObjectProperty.
