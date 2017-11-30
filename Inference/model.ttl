@@ -1,0 +1,64 @@
+@prefix ns:   <http://www.example.org/ns#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix frapo: <http://purl.org/cerif/frapo/> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+
+frapo:Funding rdf:type owl:Class;
+			rdfs:subClassOf frapo:FinancialEntity.
+
+frapo:BudgetInformation rdf:type owl:Class;
+			rdfs:subClassOf frapo:FinancialEntity.
+
+frapo:BudgetedAmout rdf:type owl:Class;
+			rdfs:subClassOf frapo:BudgetInforation.
+
+frapo:hasDeliveryDate rdf:type rdf:Property;
+			rdf:type owl:ObjectProperty.
+
+dbo:Place rdf:type owl:Class;
+			rdfs:subClassOf owl:Thing.
+
+# Definition de classes pour les objets typés
+ns:Secret rdf:type owl:Class, xsd:boolean.
+ns:NotAvailable rdf:type owl:Class, xsd:boolean.
+ns:DataState rdf:type owl:Class, xsd:string.
+
+# Definition de classes pour les objets composés 
+ns:Indicator rdfs:type owl:Class, frapo:BudgetInformation.
+ns:Staff rdf:type owl:Class, frapo:BudgetInformation.
+ns:Intensity rdf:type owl:Class, frapo:BudgetInformation.
+
+# Definiton des différentes propriétés que nous avons mis en place
+ns:hasSecret rdf:type owl:DatatypeProperty, owl:FunctionalProperty;
+			rdfs:range ns:Secret;
+			rdfs:domain frapo:Funding.
+
+ns:hasNotAvailable rdf:type owl:DatatypeProperty, owl:FunctionalProperty;
+			rdfs:range ns:NotAvailable;
+			rdfs:domain frapo:Funding.
+
+ns:hasDataState rdf:type owl:DatatypeProperty, owl:FunctionalProperty;
+			rdfs:range ns:DataState;
+			rdfs:domain frapo:Funding.
+
+ns:hasIndicator rdf:type owl:ObjectProperty, owl:FunctionalProperty;
+			rdfs:range ns:Indicator;
+			rdfs:domain frapo:Funding.
+
+ns:hasStaff rdf:type owl:ObjectProperty, owl:FunctionalProperty;
+			rdfs:range ns:Staff;
+			rdfs:domain frapo:Funding.
+
+ns:hasIntensity rdf:type owl:ObjectProperty, owl:FunctionalProperty;
+			rdfs:range ns:Intensity;
+			rdfs:domain frapo:Funding
+
+#A revoir car pas sur de subClassOf
+
+
+# range ns:Indicator, ns:Staff, ns: Intensity sur une classe, puis définir cette classe pour qu'elle corresponde à ce qu'on souhaite entre crochet 
+
+#Définir des super et sous classe importante !

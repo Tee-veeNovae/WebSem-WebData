@@ -79,13 +79,6 @@ ORDER BY ?valeur
 
 #Requêtes sur un autre dataset
 
-
-PREFIX frapo: <http://purl.org/cerif/frapo/>
-PREFIX dbo: <http://dbpedia.org/ontology/>
-PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
-
-
 PREFIX frapo: <http://purl.org/cerif/frapo/>
 PREFIX dbo: <http://dbpedia.org/ontology/>
 PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
