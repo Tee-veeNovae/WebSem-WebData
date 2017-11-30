@@ -1,0 +1,46 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+
+:DataSet 		   	a                       void:Dataset;
+					foaf:homepage	        <http://ex.org/fr-esr-rd-moyens-entreprises-intensite/>;
+					foaf:homepage           <site_de_download>
+					dcterms:contributor     :univ_Nantes;
+					dcterms:publisher		:ivan_DC;
+					dcterms:publisher		:baptiste_A;
+					dcterms:publisher       :loic_B;
+					dcterms:modified        "2017-11-30"^^xsd:date ;
+			    	dcterms:license 		<https://opendatacommons.org/licenses/pddl/1.0/> ;
+			    	void:feature			<http://www.w3.org/ns/formats/Turtle>
+			    	void:triples			79469;
+			    	void:sparqlEndpoint		<http://localhost:3030/WebSem/sparql>
+
+<dataset.rdf> 		void:inDataset 			<dataset.ttl#notreDataset>
+
+
+:ivan_DC         	a						foaf:Person;
+					rdfs:label				"Ivan Dromigny--Chevreuil";
+					foaf:mbox				<ivan.dromigny--chevreuil@etu.univ-nantes.fr>.
+
+:baptiste_A			a						foaf:Person;
+					rdfs:label				"Bapstiste Auffray";
+					foaf:mbox				<baptiste.auffray@etu.univ-nantes.fr>.
+
+:loic_B				a						foaf:Person;
+					rdfs:label				"Loïc Boutin";
+					foaf:mbox				<loic.boutin@etu.univ-nantes.fr>.
+
+
+:univ_Nantes   		a						foaf:Organization;
+			   		rdfs:label				"Université de Nantes";
+			   		foaf:homepage			<http://www.univ-nantes.fr>.
+
+
+:notreDataset		a     					void:Linkset ;
+	    			void:target             OtherDataSet1 ;
+	            	void:target             OtherDataSet2 ;
+	            	void:linkedPredicate    owl:sameAs.

@@ -11,7 +11,8 @@ CONSTRUCT {
 	#L'URI pour les régions permettant de lier les données
 	?URI_Code_Region rdf:type frapo:hasCode;
 		owl:sameAs ?URI_Code_Region_Loic;
-		owl:sameAs ?URI_Code_Region_Clem.
+		owl:sameAs ?URI_Code_Region_Clem;
+		owl:sameAs ?URI_DBPedia.
 
 	#L'URI_Funding pour les fonts
 	?URI_Funding a frapo:Funding;
@@ -71,5 +72,7 @@ WHERE {
 	#Construction des URI pour la liaison des datasets
 	BIND(URI(CONCAT("http://ex.org/fr-esr-rd-moyens-entreprises-intensite/codeRegion/", ?code_zone_geo)) AS ?URI_Code_Region)
 	BIND(URI(CONCAT("http://ex.org/budget/codeRegion/", ?code_zone_geo)) AS ?URI_Code_Region_Loic)
-	#BIND(URI(CONCAT("http://ex.org/nous/codeRegion/", ?code_zone_geo)) AS ?URI_Code_Region_Clem)
+	BIND(URI(CONCAT("http://ex.org/nous/codeRegion/", ?code_zone_geo)) AS ?URI_Code_Region_Clem)
+
+	BIND(URI(CONCAT("http://fr.dbpedia.org/resource/",REPLACE(?Zone_géographique, " ", "_"))) AS ?URI_DBPedia)
 }

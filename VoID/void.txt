@@ -1,0 +1,48 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+
+:notreDataset   	a                       void:Dataset;
+					foaf:homepage	        <http://ex.org/budget/>;
+					foaf:homepage           <site_de_download>
+					dcterms:contributor     :Univ_Nantes;
+					dcterms:publisher		:Loic_M;
+					dcterms:publisher		:Demetre_P;
+					dcterms:publisher       :Carol_C;
+					dcterms:modified        "2017-11-16"^^xsd:date ;
+			    	dcterms:license 		<http://www.opendatacommons.org/odc-public-domain-dedication-and-licence/> ;
+			    wv:waiver """To the extent possible under law, The Example Organisation has waived all
+          copyright and related or neighboring rights to The Example Dataset.""" ;
+			    		void:feature			<http://www.w3.org/ns/formats/Turtle>
+			    		void:triples         	210222;
+			    	void:sparqlEndpoint		<http://localhost:3030/notreDataset/sparql>
+
+<dataset.rdf> 		void:inDataset 			<dataset.ttl#notreDataset>
+
+
+:Loic_M         	a						foaf:Person;
+					rdfs:label				"Loïc MAHIER";
+					foaf:mbox				<loic.mahier@univ-nantes.fr>.
+
+:Demetre_P			a						foaf:Person;
+					rdfs:label				"Demetre PHALAVANDISHVILI";
+					foaf:mbox				<demetre.phalavandishvili@univ-nantes.fr>.
+
+:Carol_C			a						foaf:Person;
+					rdfs:label				"Carol COUILLEROT";
+					foaf:mbox				<carol.couillerot@univ-nantes.fr>.
+
+
+:Univ_Nantes   		a						foaf:Organization;
+			   		rdfs:label				"Université de Nantes";
+			   		foaf:homepage			<http://www.univ-nantes.fr>.
+
+
+:notreDataset  a     					void:Linkset ;
+    		   void:target              clemDataset ;
+               void:target              yvanDataset ;
+               void:linkedPredicate     owl:sameAs.
