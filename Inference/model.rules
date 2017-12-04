@@ -1,10 +1,22 @@
 @prefix ns:   <http://www.example.org/ns#> .
 @prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ns:   <http://www.example.org/ns#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl:  <http://www.w3.org/2002/07/owl#> .
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 @prefix frapo: <http://purl.org/cerif/frapo/> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
 
-#[rule1: (owl:DatatypeProperty rdfs:subClassOf owl:Property) (?s rdf:type owl:DatatypeProperty) -> (?s rdf:type owl:Property)]
+#Si DatatypeProperty est une sous-classe de Property et le sujet est de type DatatypeProperty, Alors le sujet est de type Property
+[rule1: (owl:DatatypeProperty rdfs:subClassOf owl:Property) (?s rdf:type owl:DatatypeProperty) -> (?s rdf:type owl:Property)]
 
-[rule2: (frapo:Funding rdfs:subClassOf frapo:FinancialEntity) (?s rdf:type frapo:Funding) -> (?s rdf:type frapo:FinancialEntity)]
+#Si BudgetedAmount est une sous-classe de BudgetInformation et l'objet est un BudgetedAmount, Alors l'objet est un BudgetInformation
+[rule2: (frapo:BudgetedAmount rdfs:subClassOf frapo:BudgetInformation) (?s frapo:BudgetedAmount ?o) -> (?s frapo:BudgetInformation ?o)]
+
+#Si Funding est une sous-classe de FinancialEntity et le sujet est de type Funding, Alors le sujet est de type FinancialEntity
+[rule3: (frapo:Funding rdfs:subClassOf frapo:FinancialEntity) (?s rdf:type frapo:Funding) -> (?s rdf:type frapo:FinancialEntity)]
+
+#Si BudgetInformation est une sous-classe de FinancialEntity et le sujet est de type BudgetInformation, Alors le sujet est de type FinancialEntity
+[rule4: (frapo:BudgetInformation rdfs:subClassOf frapo:FinancialEntity) (?s rdf:type frapo:BudgetInformation) -> (?s rdf:type frapo:FinancialEntity)]

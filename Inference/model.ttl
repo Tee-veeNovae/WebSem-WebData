@@ -12,8 +12,8 @@ frapo:Funding rdf:type owl:Class;
 frapo:BudgetInformation rdf:type owl:Class;
 			rdfs:subClassOf frapo:FinancialEntity.
 
-frapo:BudgetedAmout rdf:type owl:Class;
-			rdfs:subClassOf frapo:BudgetInforation.
+frapo:BudgetedAmount rdf:type owl:Class;
+			rdfs:subClassOf frapo:BudgetInformation.
 
 frapo:hasDeliveryDate rdf:type rdf:Property;
 			rdf:type owl:ObjectProperty.
@@ -21,13 +21,15 @@ frapo:hasDeliveryDate rdf:type rdf:Property;
 dbo:Place rdf:type owl:Class;
 			rdfs:subClassOf owl:Thing.
 
+owl:DatatypeProperty rdfs:subClassOf owl:Property.
+
 # Definition de classes pour les objets typés
 ns:Secret rdf:type owl:Class, xsd:boolean.
 ns:NotAvailable rdf:type owl:Class, xsd:boolean.
 ns:DataState rdf:type owl:Class, xsd:string.
 
 # Definition de classes pour les objets composés 
-ns:Indicator rdfs:type owl:Class, frapo:BudgetInformation.
+ns:Indicator rdf:type owl:Class, frapo:BudgetInformation.
 ns:Staff rdf:type owl:Class, frapo:BudgetInformation.
 ns:Intensity rdf:type owl:Class, frapo:BudgetInformation.
 
