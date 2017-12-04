@@ -11,10 +11,9 @@ CONSTRUCT {
 	#L'URI pour les régions permettant de lier les données
 	?URI_Code_Region rdf:type frapo:hasCode;
 		owl:sameAs ?URI_Code_Region_Loic;
-		owl:sameAs ?URI_Code_Region_Clem;
-		owl:sameAs ?URI_DBPedia.
+		owl:sameAs ?URI_Code_Region_Clem.
 
-	#L'URI_Funding pour les font
+	#L'URI_Funding pour les fonts
 	?URI_Funding a frapo:Funding;
 
 		dbo:Place [frapo:hasLocation ?zone_geo;
@@ -22,20 +21,20 @@ CONSTRUCT {
 
 		frapo:hasDeliveryDate ?annee;
 		
-		ns:Indicator [frapo:hasCode ?code_indi;
+		ns:hasIndicator [frapo:hasCode ?code_indi;
 						frapo:BudgetInformation ?indicateur];
 
-		ns:Staff [frapo:hasCode ?code_pers;
+		ns:hasStaff [frapo:hasCode ?code_pers;
 						frapo:BudgetInformation ?type_pers];
 
-		ns:Intensity [frapo:hasCode ?code_int;
+		ns:hasIntensity [frapo:hasCode ?code_int;
 						frapo:BudgetInformation ?intensite];
 
-		ns:Secret ?secret;
+		ns:hasSecret ?secret;
 
-		ns:notAvailable ?non_disp;
+		ns:hasNotAvailable ?non_disp;
 
-		ns:DataState ?etat_data;
+		ns:hasDataState ?etat_data;
 
 		frapo:BudgetedAmount ?valeur.
 }
@@ -72,7 +71,5 @@ WHERE {
 	#Construction des URI pour la liaison des datasets
 	BIND(URI(CONCAT("http://ex.org/fr-esr-rd-moyens-entreprises-intensite/codeRegion/", ?code_zone_geo)) AS ?URI_Code_Region)
 	BIND(URI(CONCAT("http://ex.org/budget/codeRegion/", ?code_zone_geo)) AS ?URI_Code_Region_Loic)
-	BIND(URI(CONCAT("http://ex.org/nous/codeRegion/", ?code_zone_geo)) AS ?URI_Code_Region_Clem)
-
-	BIND(URI(CONCAT("http://fr.dbpedia.org/resource/",REPLACE(?Zone_géographique, " ", "_"))) AS ?URI_DBPedia)
+	#BIND(URI(CONCAT("http://ex.org/nous/codeRegion/", ?code_zone_geo)) AS ?URI_Code_Region_Clem)
 }
