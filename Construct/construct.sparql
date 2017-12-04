@@ -14,7 +14,7 @@ CONSTRUCT {
 		owl:sameAs ?URI_Code_Region_Clem;
 		owl:sameAs ?URI_DBPedia.
 
-	#L'URI_Funding pour les fonts
+	#L'URI_Funding pour les font
 	?URI_Funding a frapo:Funding;
 
 		dbo:Place [frapo:hasLocation ?zone_geo;

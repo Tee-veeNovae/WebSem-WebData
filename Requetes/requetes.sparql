@@ -1,15 +1,16 @@
 #Requete n°1
 PREFIX frapo: <http://purl.org/cerif/frapo/>
 PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX ns: <http://example.org/ns#>
 
 Select  ?zone_geo ?annee ?type
-Where {	?x frapo:BudgetedAmount ?valeur;
-     	   frapo:hasDeliveryDate ?annee;
-     	   dbo:Place ?place;
-     	   ex:personnel ?pers.
-    	?place frapo:hasLocation ?zone_geo.
-    	?pers ex:typePersonnel ?type.
-		FILTER(?valeur > 25000)}
+Where { ?x frapo:BudgetedAmount ?valeur;
+         frapo:hasDeliveryDate ?annee;
+         dbo:Place ?place;
+         ns:Staff ?pers.
+      ?place frapo:hasLocation ?zone_geo.
+      ?pers frapo:BudgetInformation ?type.
+    FILTER(?valeur > 25000)}
 ORDER BY ?annee
 
 
@@ -19,13 +20,14 @@ PREFIX dbo: <http://dbpedia.org/ontology/>
 PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
 
 Select DISTINCT ?zone_geo
-Where {	?x frapo:BudgetedAmount  ?valeur;
+Where { ?x frapo:BudgetedAmount  ?valeur;
            frapo:hasDeliveryDate ?annee;
-     	   dbo:Place ?place.
-     	?place frapo:hasLocation ?zone_geo.
-     	FILTER(?annee = "2010"^^xsd:gYear)}
+         dbo:Place ?place.
+      ?place frapo:hasLocation ?zone_geo.
+      FILTER(?annee = "2010"^^xsd:gYear && ?zone_geo != "France")}
 ORDER BY DESC(?valeur)
 LIMIT 5
+
 
 #Requetes d'étude du csv
 
@@ -37,38 +39,38 @@ ORDER BY ?code
 
 
 SELECT DISTINCT ?indicateur ?code
-Where {	?x ex:indicateur ?ind.
+Where {	?x ns:Indicator ?ind.
   		OPTIONAL{?ind frapo:hasCode ?code;
-     		 ex:typeIndic ?indicateur.}}
+     		 frapo:BudgetInformation ?indicateur.}}
 ORDER BY ?code
 
 
 SELECT DISTINCT ?personnel ?code
-Where {	?x ex:personnel ?pers.
+Where {	?x ns:Staff ?pers.
   		OPTIONAL{?pers frapo:hasCode ?code;
-     		 ex:typePersonnel ?personnel.}}
+     		 frapo:BudgetInformation ?personnel.}}
 ORDER BY ?code
 
 SELECT DISTINCT ?intensite ?code
-Where {	?x ex:intensite ?int.
+Where {	?x ns:Intensity ?int.
   		OPTIONAL{?int frapo:hasCode ?code;
-     		 ex:typeIntensite ?intensite.}}
+     		 frapo:BudgetInformation ?intensite.}}
 ORDER BY ?code
 
 
 SELECT DISTINCT ?secret
 Where {	?x a frapo:Funding
-		OPTIONAL{?x ex:Secret ?secret}}
+		OPTIONAL{?x ns:Secret ?secret}}
 
 
 SELECT DISTINCT ?non_disp
 Where {	?x a frapo:Funding
-		OPTIONAL{?x ex:nonDisponible ?non_disp}}
+		OPTIONAL{?x ns:notAvailable ?non_disp}}
 
 
 SELECT DISTINCT ?etat_data
 Where {	?x a frapo:Funding
-		OPTIONAL{?x ex:etatDonnee ?etat_data}}
+		OPTIONAL{?x ns:DataState ?etat_data}}
 
 
 SELECT DISTINCT ?valeur
