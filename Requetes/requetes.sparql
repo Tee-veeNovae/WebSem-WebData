@@ -7,7 +7,7 @@ Select  ?zone_geo ?annee ?type
 Where { ?x frapo:BudgetedAmount ?valeur;
          frapo:hasDeliveryDate ?annee;
          dbo:Place ?place;
-         ns:Staff ?pers.
+         ns:hasStaff ?pers.
       ?place frapo:hasLocation ?zone_geo.
       ?pers frapo:BudgetInformation ?type.
     FILTER(?valeur > 25000)}
@@ -39,20 +39,20 @@ ORDER BY ?code
 
 
 SELECT DISTINCT ?indicateur ?code
-Where {	?x ns:Indicator ?ind.
+Where {	?x ns:hasIndicator ?ind.
   		OPTIONAL{?ind frapo:hasCode ?code;
      		 frapo:BudgetInformation ?indicateur.}}
 ORDER BY ?code
 
 
 SELECT DISTINCT ?personnel ?code
-Where {	?x ns:Staff ?pers.
+Where {	?x ns:hasStaff ?pers.
   		OPTIONAL{?pers frapo:hasCode ?code;
      		 frapo:BudgetInformation ?personnel.}}
 ORDER BY ?code
 
 SELECT DISTINCT ?intensite ?code
-Where {	?x ns:Intensity ?int.
+Where {	?x ns:hasIntensity ?int.
   		OPTIONAL{?int frapo:hasCode ?code;
      		 frapo:BudgetInformation ?intensite.}}
 ORDER BY ?code
@@ -60,7 +60,7 @@ ORDER BY ?code
 
 SELECT DISTINCT ?secret
 Where {	?x a frapo:Funding
-		OPTIONAL{?x ns:Secret ?secret}}
+		OPTIONAL{?x ns:hasSecret ?secret}}
 
 
 SELECT DISTINCT ?non_disp
@@ -70,7 +70,7 @@ Where {	?x a frapo:Funding
 
 SELECT DISTINCT ?etat_data
 Where {	?x a frapo:Funding
-		OPTIONAL{?x ns:DataState ?etat_data}}
+		OPTIONAL{?x ns:hasDataState ?etat_data}}
 
 
 SELECT DISTINCT ?valeur

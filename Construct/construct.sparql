@@ -13,10 +13,13 @@ CONSTRUCT {
 		owl:sameAs ?URI_Code_Region_Loic;
 		owl:sameAs ?URI_Code_Region_Clem.
 
+	?URI_Region rdf:type frapo:hasLocation;
+		owl:sameAs ?URI_DBPedia.
+
 	#L'URI_Funding pour les fonts
 	?URI_Funding a frapo:Funding;
 
-		dbo:Place [frapo:hasLocation ?zone_geo;
+		dbo:Place [frapo:hasLocation ?URI_Region;
 					frapo:hasCode ?URI_Code_Region];
 
 		frapo:hasDeliveryDate ?annee;
@@ -70,6 +73,10 @@ WHERE {
 
 	#Construction des URI pour la liaison des datasets
 	BIND(URI(CONCAT("http://ex.org/fr-esr-rd-moyens-entreprises-intensite/codeRegion/", ?code_zone_geo)) AS ?URI_Code_Region)
+	BIND(URI(CONCAT("http://ex.org/fr-esr-rd-moyens-entreprises-intensite/region/", ?Zone_géographique)) AS ?URI_Region)
+
 	BIND(URI(CONCAT("http://ex.org/budget/codeRegion/", ?code_zone_geo)) AS ?URI_Code_Region_Loic)
-	#BIND(URI(CONCAT("http://ex.org/nous/codeRegion/", ?code_zone_geo)) AS ?URI_Code_Region_Clem)
+	BIND(URI(CONCAT("http://ex.org/nous/codeRegion/", ?code_zone_geo)) AS ?URI_Code_Region_Clem)
+
+	BIND(URI(CONCAT("http://fr.dbpedia.org/resource/",REPLACE(?Zone_géographique, " ", "_"))) AS ?URI_DBPedia)
 }
